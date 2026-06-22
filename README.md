@@ -17,6 +17,7 @@ PolyForge is a lightweight, single-file web application for building and exporti
 * **Undo/Redo System:** Steps backward and forward through visual changes and code executions.
 * **GLB Export:** Saves models directly to standard GLTF Binary (`.glb`) files to use in other 3D software (Blender, Unity, Godot, etc.).
 
+![PolyForge Preview](assets/f16.png)
 ---
 
 ## The UI: This Does That
