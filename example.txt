@@ -1,0 +1,74 @@
+# PolyScript: Castle Tower & Wizard Ring
+# --------------------------------------------------
+# 1. Base Meadow Ground
+add ground
+pos 0 0 0
+scale 2.0 1.0 2.0
+color #2a352a
+rough 0.95
+
+# 2. Procedural Stone Tower Base Layers
+for i = 1 to 5
+  let h = i * 1.2
+  add cylinder
+  pos 0 h 0
+  scale 2.2 1.2 2.2
+  color #555566
+  rough 0.8
+  name Tower Stone Layer
+endfor
+
+# 3. Wooden Balcony Platform
+add cylinder
+pos 0 6.6 0
+scale 2.8 0.2 2.8
+color #664422
+rough 0.9
+name Balcony Base
+
+# 4. Conical Clay Roof
+add cone
+pos 0 8.0 0
+scale 2.4 2.5 2.4
+color #aa3333
+rough 0.7
+name Cone Roof
+
+# 5. Glowing Windows Around Tower Walls
+for w = 1 to 4
+  let angle = w * (PI / 2)
+  let wx = cos(angle) * 1.05
+  let wz = sin(angle) * 1.05
+  
+  add box
+  pos wx 4.0 wz
+  scale 0.28 0.55 0.28
+  rot 0 (-angle * 180 / PI) 0
+  color #ffee88
+  rough 0.1
+  name Window Panel
+endfor
+
+# 6. Levitative Power Source (Crystal)
+add gem
+pos 0 10.3 0
+scale 0.65 1.1 0.65
+color #00ffff
+rough 0.1
+metal 0.95
+opac 0.8
+name Power Source Crystal
+
+# 7. Orbiting Mystic Leyline Rings
+for r = 1 to 3
+  add torus
+  pos 0 10.3 0
+  scale 1.6 1.6 1.6
+  let rx = r * 30
+  let ry = r * 45
+  rot rx ry 0
+  color #8833ff
+  rough 0.1
+  metal 0.8
+  name Floating Magic Ring
+endfor

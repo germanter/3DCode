@@ -1,0 +1,110 @@
+================================================================================
+                    POLYSCRIPT AUTOMATION LANGUAGE REFERENCE
+================================================================================
+
+PolyScript is a lightweight, line-by-line declarative modeling script built for 
+the PolyForge interface. It enables procedural layout generation, complex looping 
+arrays, and precise property modifications through raw text.
+
+--------------------------------------------------------------------------------
+1. LEXICAL RULES
+--------------------------------------------------------------------------------
+- Commands and instructions are processed line-by-line.
+- Whitespace is ignored.
+- Lines starting with '#' or '//' are treated as comments and ignored.
+- Empty lines are skipped.
+
+--------------------------------------------------------------------------------
+2. OBJECT CREATION
+--------------------------------------------------------------------------------
+To spawn an object, use:
+  add <primitive_type>
+
+Supported primitives:
+  box, sphere, cylinder, cone, torus, pyramid, gem, prism, star, capsule, plane, ground
+
+Instantiating an object automatically focuses the engine's execution pointer on it. 
+Subsequent parameter modifiers (position, color, scale, etc.) apply directly to 
+this active object.
+
+--------------------------------------------------------------------------------
+3. PARAMETER MODIFIERS
+--------------------------------------------------------------------------------
+Apply these commands to the currently active object:
+
+- pos <x_val> <y_val> <z_val>
+  Sets position vectors. You can pass raw values or evaluated math expressions.
+  Example: pos 2.5 (cos(i)*3) -1.2
+
+- rot <x_degrees> <y_degrees> <z_degrees>
+  Sets rotation using degrees.
+  Example: rot 0 45 90
+
+- scale <x_factor> <y_factor> <z_factor>
+  Scales dimensions along local axes.
+  Example: scale 0.5 2.0 0.5
+
+- color <#hex_color_or_variable>
+  Sets material diffuse color.
+  Example: color #ff0077
+
+- name <custom_name>
+  Renames the active asset within the scene layout.
+  Example: name Pillar Base
+
+- rough <0_to_1>
+  Controls surface microfacet roughness (0 is reflective mirror, 1 is chalk).
+  Example: rough 0.1
+
+- metal <0_to_1>
+  Determines surface metallicity (0 is plastic dielectric, 1 is reflective metal).
+  Example: metal 0.8
+
+- opac <0_to_1>
+  Alters opacity transparency parameters. Values below 1.0 enable alpha blending.
+  Example: opac 0.75
+
+- wire <true/false>
+  Toggles visual wireframe rasterizer overlay.
+  Example: wire true
+
+- flat <true/false>
+  Toggles low-poly flat face normals rendering. True by default.
+  Example: flat false
+
+--------------------------------------------------------------------------------
+4. VARIABLES AND CALCULATED EXPRESSIONS
+--------------------------------------------------------------------------------
+Define custom parameters with local scope:
+  let <variable_name> = <mathematical_expression>
+
+You can perform inline mathematical calculations on variables or loop indexes. 
+The system automatically exiles global scopes but maps standard Javascript Math 
+methods directly. 
+
+Exposed Constants & Functions:
+  PI, sin(), cos(), tan(), abs(), sqrt(), pow(), random(), min(), max()
+
+Example:
+  let radius = 5.2
+  let targetX = cos(angle) * radius
+
+--------------------------------------------------------------------------------
+5. CONTROL STRUCTURES: FOR LOOPS
+--------------------------------------------------------------------------------
+Generate repetitive or circular structural patterns using standard loops:
+
+  for <index_variable> = <start_value> to <end_value> [step <step_value>]
+    ... nested creation logic ...
+  endfor
+
+- The 'step' attribute is optional and defaults to 1. 
+- Loops can execute positive steps or count downwards.
+- Nested loop blocks are supported.
+
+Example (generating a column line):
+  for i = -5 to 5 step 2.5
+    add box
+    pos i 0.5 0
+    color #aa33ff
+  endfor
